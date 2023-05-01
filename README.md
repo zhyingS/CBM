@@ -13,7 +13,7 @@ We study the problem of inter-agent object association along with inter-agent re
 
 
 
-![](https://typora-1259479609.cos.ap-shanghai.myqcloud.com/image/process.png)
+![process](figure/process.png)
 
 
 
@@ -27,27 +27,10 @@ python main.py
 
 A demo result:
 
-![image-20230501154532418](https://typora-1259479609.cos.ap-shanghai.myqcloud.com/image/image-20230501154532418.png)
+![demo](figure/demo.png)
 
 
 
 ## TODOS
 
 - Add code of Algorithm 2 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
