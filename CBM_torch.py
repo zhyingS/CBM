@@ -1,6 +1,5 @@
 import argparse
 import math
-import time
 from typing import Tuple, Any
 
 import numpy as np
@@ -42,27 +41,18 @@ class CBM():
         Ego, Cav = Ego.to(self.device), Cav.to(self.device)
 
         # Unify the orientation
-        ta = time.time()
         Ego, Cav = self.Uni_Ori(Ego, Cav, transform)
-        tb = time.time()
-        print('time for unify coordinate:', tb - ta)
 
         # Construct local context
         P, Q = self.CLC(Ego), self.CLC(Cav)
         self.m, self.n = len(P), len(Q)
-        tc = time.time()
-        print('time for local context construction', tc - tb)
 
         # Local matching
         M, M_G = self.LM(P, Q)
-        td = time.time()
-        print('time for local matching', td - tc)
-
+       
         # Global matching
         A_ = self.GM(M, M_G, Ego, Cav)
-        te = time.time()
-        print('time for global matching', te - td)
-
+        
         # Convert matching matrix to the form [[i,j]]
         m = torch.where(A_ > 0)
         matching = torch.hstack((m[0].reshape(-1, 1), m[1].reshape(-1, 1)))
@@ -119,7 +109,6 @@ class CBM():
 
         Gij_ = (Gij * (M - sum_mask) >= 1)
         Mij_ = ((sum_mask + Gij_) >= 1)
-        index = torch.where(Mij_ != 0)
 
         ind_ = torch.where(torch.sum(Mij_, dim=2) > 1)
         if len(ind_[0]) != 0:
@@ -156,6 +145,7 @@ class CBM():
         sigma1, sigma2, sigma3 = self.args.sigma1, self.args.sigma2, self.args.sigma3
 
         M, M_G = torch.zeros((m * n, m, n)).to(self.device), torch.zeros((m * n, m, n)).to(self.device)
+
         P_ = P.repeat_interleave(n, dim=0)
         Q_ = Q.repeat(m, 1, 1)
         a = torch.matmul(P_.transpose(1, 2), Q_)
@@ -168,6 +158,10 @@ class CBM():
         Sz2 = torch.norm(dis, dim=1, p=1)
         ind_2 = torch.where(Sz2 <= sigma2)[0]
         ind_3 = torch.where(Sz2 <= sigma3)[0]
+
+        m_ , n_ = torch.floor(sta[0]/n).type(torch.int64), sta[0]%n
+        M[sta[0], m_, n_] = 1
+        M_G[sta[0], m_, n_] = 1
 
         if len(ind_2) > 0:
             M[sta[0][ind_2], sta[1][ind_2], sta[2][ind_2]] = 1
