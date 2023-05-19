@@ -1,4 +1,3 @@
-# first submission for TITS
 import argparse
 import math
 import time
