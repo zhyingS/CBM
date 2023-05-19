@@ -2,7 +2,7 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import ConnectionPatch
-from CBM import CBM as CBM_
+from CBM_torch import CBM as CBM_
 
 
 def main(Ego_box, Cav_box):
@@ -10,7 +10,9 @@ def main(Ego_box, Cav_box):
     #        Cav box: Nx7 (x,y,z,h,w,l,theta)
 
     CBM = CBM_()
-    matching = CBM(Ego_box, Cav_box, transform=np.eye(4))
+    matching = CBM(Ego_box, Cav_box, np.eye(4))
+    if not isinstance(matching, np.ndarray):
+        matching = np.asarray(matching.cpu())
 
     return matching
 
