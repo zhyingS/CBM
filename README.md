@@ -13,10 +13,6 @@ We study the problem of inter-agent object association along with inter-agent re
 
 
 
-![process](figure/process.png)
-
-
-
 ## Demo
 
 Execute the demo as
@@ -25,12 +21,14 @@ Execute the demo as
 python main.py
 ```
 
+Both ```numpy``` and ```torch```  implementations of $\tt{CBM}$ are available.
+
 A demo result:
 
 ![demo](figure/demo.png)
 
+Tested on:
 
+- Ubuntu 18.04
+- Torch 1.9.1
 
-## TODOS
-
-- Add code of Algorithm 2 
