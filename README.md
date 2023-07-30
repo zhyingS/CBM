@@ -15,7 +15,7 @@ Cooperative perception (CP) is a promising technique for enhancing the perceptio
 
 ## How do localization errors impact CP?
 
-To demonstrate the impact of localization errors on cooperative perception, we have selected certain scenarios from [OPV2V](https://arxiv.org/pdf/2109.07644.pdf) Test Culver City and created the following video. It is assumed that Cav (Connected Autonomous Vehicle) and Ego (the host vehicle) perform 3D object detection independently. Cav then sends its results to Ego and transforms them into Ego's coordinate system. Random Gaussian errors are applied to Cav's position (x, y) and heading angle.
+To demonstrate the impact of localization errors on cooperative perception, we have selected certain scenarios from [OPV2V](https://arxiv.org/pdf/2109.07644.pdf) Test Culver City and created the [video](figure/without_CBM.mp4). It is assumed that Cav (Connected Autonomous Vehicle) and Ego (the host vehicle) perform 3D object detection independently. Cav then sends its results to Ego and transforms them into Ego's coordinate system. Random Gaussian errors are applied to Cav's position (x, y) and heading angle.
 
 Indeed, the localization errors cause the bounding boxes received by Ego to randomly jump in space, leading to significant disruptions in its own perception system. In this scenario, Ego not only fails to benefit from collaborative perception but is instead disturbed by the errors.
 
@@ -41,7 +41,7 @@ Because $\tt{CBM}$ calibrates localization errors mainly by matching boxes from 
 
 ## Localization Calibration Performance
 
-The following video demonstrates the performance of $\tt{CBM}$ on the entire OPV2V Test Culver City dataset (a total of 549 frames). As it is observed, the perception results of Cav (depicted by blue bounding boxes) and Ego (represented by black bounding boxes) are no longer randomly jumping but instead aligning properly. After calibration, the errors are consistently maintained at lower levels (Relative Rotation Error and Relative Translation Error). For more detailed test results, please refer to the [paper](https://arxiv.org/abs/2304.12033).
+[The video](figure/with_CBM.mp4) demonstrates the performance of $\tt{CBM}$ on the entire OPV2V Test Culver City dataset (a total of 549 frames). As it is observed, the perception results of Cav (depicted by blue bounding boxes) and Ego (represented by black bounding boxes) are no longer randomly jumping but instead aligning properly. After calibration, the errors are consistently maintained at lower levels (Relative Rotation Error and Relative Translation Error). For more detailed test results, please refer to the [paper](https://arxiv.org/abs/2304.12033).
 
 <video src="figure/with_CBM.mp4"></video>
 
