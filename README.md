@@ -44,7 +44,7 @@ Because $\tt{CBM}$ calibrates localization errors mainly by matching boxes from 
 [The video](with_CBM.mp4) demonstrates the performance of $\tt{CBM}$ on the entire OPV2V Test Culver City dataset (a total of 549 frames). As it is observed, the perception results of Cav (depicted by blue bounding boxes) and Ego (represented by black bounding boxes) are no longer randomly jumping but instead aligning properly. After calibration, the errors are consistently maintained at lower levels (Relative Rotation Error and Relative Translation Error). For more detailed test results, please refer to the [paper](https://arxiv.org/abs/2304.12033).
 
 <video src="figure/with_CBM.mp4"></video>
-
+![test_culver_city](figure/test_culver_city.jpg)
 
 
 ![loc_calib_opv2v](figure/loc_calib_opv2v.png)
