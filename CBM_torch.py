@@ -64,6 +64,8 @@ class CBM():
         for (i,j) in enumerate(args):
             if isinstance(j, np.ndarray):
                 args_ += (torch.tensor(j, dtype= torch.float32).to(self.device),)
+            else:
+                args_ += (j.to(self.device),)
         return args_
 
     def Uni_Ori(self, Ego: torch.Tensor, Cav: torch.Tensor, transform: torch.Tensor) -> Tuple[Tensor, Tensor]:
