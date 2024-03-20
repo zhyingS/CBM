@@ -76,6 +76,16 @@ class CBM():
 
         Cav[:, -1] += angle[-1]
         Cav[:, 0:3] = (torch.mm(R, Cav[:, 0:3].T) + t).T
+
+        v = Ego[:, -1]
+        index_ego = torch.where(v <0)[0]
+        if index_ego.shape[0] != 0:
+            Ego[index_ego, -1] += math.pi
+        v = Cav[:, -1]
+        index_cav = torch.where(v <0)[0]
+        if index_cav.shape[0] != 0:
+            Cav[index_cav, -1] += math.pi
+            
         Ego[:, -1] = torch.fmod(Ego[:, -1], math.pi)
         Cav[:, -1] = torch.fmod(Cav[:, -1], math.pi)
         v = Ego[:, -1]
