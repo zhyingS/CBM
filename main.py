@@ -5,12 +5,12 @@ from matplotlib.patches import ConnectionPatch
 from CBM_torch import CBM as CBM_
 
 
-def main(Ego_box, Cav_box):
+def main(Ego_box, Cav_box, ini_transform):
     # Input: Ego box: Mx7 (x,y,z,h,w,l,theta) unit: m and rad
     #        Cav box: Nx7 (x,y,z,h,w,l,theta)
 
     CBM = CBM_()
-    matching = CBM(Ego_box, Cav_box, np.eye(4))
+    matching = CBM(Ego_box, Cav_box, ini_transform)
     if not isinstance(matching, np.ndarray):
         matching = np.asarray(matching.cpu())
 
@@ -54,7 +54,9 @@ if __name__ == '__main__':
     # Generate two group of objects in the bounding box manner
     Ego_box = np.random.rand(50, 7) * 200 - 100
     Cav_box = np.random.rand(5, 7) * 200 - 100
-
+    ini_transform = None #default: np.eye(4) 
+    assert ini_transform is None, 'Please input your initial transform between source and target boxes, using default might leads to performance degradation.'
+    
     # generate ground truth matching correspondences
     co_visible_num = 2
     a = random.sample(range(Ego_box.shape[0]), co_visible_num)
@@ -64,7 +66,7 @@ if __name__ == '__main__':
     Cav_box[GT_matching[:, 1], :] = Ego_box[GT_matching[:, 0], :]
 
     # Match the two groups of boxes by CBM
-    matching = main(Ego_box, Cav_box)
+    matching = main(Ego_box, Cav_box,ini_transform)
 
     # Visulaization
     plot_points(Ego_box, Cav_box, matching, GT_matching)
