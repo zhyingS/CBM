@@ -55,7 +55,7 @@ if __name__ == '__main__':
     Ego_box = np.random.rand(50, 7) * 200 - 100
     Cav_box = np.random.rand(5, 7) * 200 - 100
     ini_transform = None #default: np.eye(4) 
-    assert ini_transform is None, 'Please input your initial transform between source and target boxes, using default might leads to performance degradation.'
+    assert (ini_transform is not None), 'Please input your initial transform between source and target boxes, using default might leads to performance degradation.'
     
     # generate ground truth matching correspondences
     co_visible_num = 2
